@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h1>Search for medias:</h1>
+    <div class="search-form">
+      <div class="col-sm-12">
+        <label class="radio-inline"><input #mediaTypeField="ngModel" name="mediaTypeField" [(ngModel)]="mediaType"
+                                           [ngModelOptions]="{standalone: true}" type="radio" [value]="true"><span>Movie</span></label>
+        <label class="radio-inline"><input #mediaTypeField="ngModel" name="mediaTypeField" [(ngModel)]="mediaType"
+                                           [ngModelOptions]="{standalone: true}" type="radio" [value]="false"><span>Serie</span></label>
+      </div>
+      <br>
+      <form [formGroup]="searchForm" (ngSubmit)="submitHandler()">
+        <div class="form-group">
+          <label>Search:</label>
+          <input class="form-control" formControlName="searchField">
+        </div>
+      </form>
+    </div>
+    <div *ngIf="searchResults">
+      <div class="search-result">
+        <div class="movies-list" [@listStragger]="searchResults">
+          <div *ngFor="let media of searchResults.results" class="col-md-4 col-sm-6 box-movie">
+            <div class="main-movie">
+              <a routerLink="/details/{{type}}/{{media.id}}">
+                <img
+                  [src]="media.poster_path!== null ? 'https://image.tmdb.org/t/p/w300/' + media.poster_path : '../404.jpg'"
+                  class="img-responsive"/>
+                <h3>{{media.title}}</h3>
+                <h5 class="small">{{ media.release_date }}</h5>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!searchResults">No Media found!</div>
+  </div>
+</div>

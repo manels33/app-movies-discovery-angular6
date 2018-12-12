@@ -1,0 +1,25 @@
+<!----------------      List of  --------------->
+<h1>Medias</h1>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="btns">
+            <button class="btn btn-lg" (click)="requestMedia('movie')">Movies</button>
+            <button class="btn btn-lg" (click)="requestMedia('serie')">Series</button>
+      </div>
+    </div>
+<div *ngIf="medias">
+    <div class="movies-list" [@listStragger]="movies">
+        <div *ngFor="let media of medias.results" class="col-md-4 col-sm-6 box-media">
+          <div class="main-media">
+            <a routerLink="/details/{{mediaType}}/{{media.id}}">
+            <img srcset="https://image.tmdb.org/t/p/w300/{{media.poster_path}}" class="img-responsive" />
+            <h3>{{media.title}}</h3>
+            <h5 class="small">{{ media.release_date }}</h5>
+            </a>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="!medias">No movies found!</div>
+</div>
+
